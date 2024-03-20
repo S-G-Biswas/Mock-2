@@ -22,7 +22,7 @@ bookRouter.post("/",auth,async(req,res)=>{
 
 //Getting all the books 
 
-bookRouter.get("/",auth,async(req,res)=>{
+bookRouter.get("/",async(req,res)=>{
     
     try {
          const books = await BooksModel.find()
@@ -36,7 +36,7 @@ bookRouter.get("/",auth,async(req,res)=>{
 
 //Get book by id
 
-bookRouter.get("/:bookID",auth,async(req,res)=>{
+bookRouter.get("/:bookID",async(req,res)=>{
     const {bookID} = req.params
     try {
         const note = await BooksModel.findOne({_id:bookID})
@@ -48,7 +48,7 @@ bookRouter.get("/:bookID",auth,async(req,res)=>{
 })
 
 //Find book by category
-bookRouter.get("/", auth, async (req, res) => {
+bookRouter.get("/",async (req, res) => {
     const {Book_category}  = req.query.category;
     try {
         if (Book_category) {
