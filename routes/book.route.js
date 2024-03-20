@@ -34,6 +34,58 @@ bookRouter.get("/",auth,async(req,res)=>{
 })
 
 
+//Get book by id
+
+bookRouter.get("/:bookID",auth,async(req,res)=>{
+    const {bookID} = req.params
+    try {
+        const note = await BooksModel.findOne({_id:bookID})
+        res.send({note}) 
+    } 
+    catch (error) {
+        res.send({"Error":error})
+    }
+})
+
+//Find book by category
+bookRouter.get("/", auth, async (req, res) => {
+    const {Book_category}  = req.query.category;
+    try {
+        if (Book_category) {
+           const  books = await BooksModel.find({ category: Book_category });
+            // res.send({ books });
+        } 
+        else {
+            res.send({"Error":"Book Not Found"})
+        }
+        
+    } catch (error) {
+        res.status(500).send({ "error": error });
+    }
+});
+
+//Find book by author & category
+bookRouter.get("/", auth, async (req, res) => {
+    const { author, category } = req.query;
+    try {
+        let query = {};
+        if (author) {
+            query.author = author;
+        }
+        if (category) {
+            query.category = category;
+        }
+
+        const books = await BooksModel.find(query);
+        res.send({ books });
+    } 
+    catch (error) {
+        res.status(500).send({ error: error });
+    }
+});
+
+
+
 //update books
 bookRouter.patch("/:bookID",auth,async(req,res)=>{
     const {bookID} = req.params

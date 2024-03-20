@@ -14,10 +14,6 @@ app.get("/", (req,res)=>{
     res.send({"msg":"This is home Route"})
 })
 
-app.get("/about",(req,res)=>{
-    res.send({"msg":"This is the about page"})
-})
-
 
 
 ///Server connection
